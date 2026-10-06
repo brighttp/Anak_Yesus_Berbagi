@@ -131,7 +131,7 @@ export default function Dashboard() {
                     <p className="text-[#2A1A0E]/70 text-sm mb-3">"{item.description}"</p>
                   )}
 
-                  {item.message && (
+                  {item.type === 'money' && item.message && (
                     <div className="mt-3 bg-[#FEF3E2]/50 p-4 rounded-xl rounded-tl-none border border-[#F4AE52]/20 flex gap-3 items-start">
                       <MessageCircle className="w-5 h-5 text-[#F4AE52] shrink-0 mt-0.5" />
                       <p className="text-[#2A1A0E] text-sm italic">{item.message}</p>
