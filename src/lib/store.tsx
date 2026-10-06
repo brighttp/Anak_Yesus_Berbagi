@@ -14,6 +14,7 @@ interface StoreContextType {
   deleteDonation: (id: string) => Promise<void>;
   deleteItemDonation: (id: string) => Promise<void>;
   totalMoney: number;
+  isLoading: boolean;
 }
 
 const mockDonations: Donation[] = [
@@ -33,6 +34,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const [donations, setDonations] = useState<Donation[]>(isSupabaseConfigured ? [] : mockDonations);
   const [itemDonations, setItemDonations] = useState<ItemDonation[]>(isSupabaseConfigured ? [] : mockItemDonations);
+  const [isLoading, setIsLoading] = useState<boolean>(isSupabaseConfigured);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -46,6 +48,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
       if (moneyRes.data) setDonations(moneyRes.data.map(d => ({ ...d, type: 'money' })));
       if (itemRes.data) setItemDonations(itemRes.data.map(d => ({ ...d, type: 'item' })));
+      setIsLoading(false);
     };
 
     fetchData();
@@ -126,7 +129,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const totalMoney = donations.reduce((acc, curr) => acc + curr.amount, 0);
 
   return (
-    <StoreContext.Provider value={{ donations, itemDonations, feed, addDonation, addItemDonation, deleteDonation, deleteItemDonation, totalMoney }}>
+    <StoreContext.Provider value={{ donations, itemDonations, feed, addDonation, addItemDonation, deleteDonation, deleteItemDonation, totalMoney, isLoading }}>
       {children}
     </StoreContext.Provider>
   );

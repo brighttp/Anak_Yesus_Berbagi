@@ -5,7 +5,7 @@ import { useStore } from '@/lib/store';
 import { HandHeart, PackagePlus, MessageCircle, Wallet, Shirt } from 'lucide-react';
 
 export default function Dashboard() {
-  const { totalMoney, feed } = useStore();
+  const { totalMoney, feed, isLoading } = useStore();
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -67,11 +67,15 @@ export default function Dashboard() {
 
             <div className="bg-gradient-to-br from-[#FEF3E2] to-white rounded-2xl p-6 border border-[#F4AE52]/30 mb-8 relative z-10 shadow-sm w-fit pr-12">
               <h3 className="text-[#2A1A0E]/70 font-semibold mb-2 text-sm uppercase tracking-wider">Total Saldo Terkumpul</h3>
-              <div className="flex items-baseline gap-1.5 text-[#D4621A] drop-shadow-sm">
+              <div className="flex items-baseline gap-1.5 text-[#D4621A] drop-shadow-sm min-h-[48px] sm:min-h-[60px]">
                 <span className="text-2xl sm:text-3xl font-bold">Rp</span>
-                <span className="text-4xl sm:text-5xl font-extrabold tracking-tight">
-                  {new Intl.NumberFormat('id-ID').format(totalMoney)}
-                </span>
+                {isLoading ? (
+                  <div className="h-10 sm:h-12 w-32 sm:w-48 bg-[#D4621A]/20 animate-pulse rounded-lg ml-1 self-center"></div>
+                ) : (
+                  <span className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+                    {new Intl.NumberFormat('id-ID').format(totalMoney)}
+                  </span>
+                )}
               </div>
             </div>
             
