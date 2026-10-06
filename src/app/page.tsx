@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useStore } from '@/lib/store';
-import { HandHeart, PackagePlus, MessageCircle, Wallet, Shirt } from 'lucide-react';
+import { HandHeart, PackagePlus, MessageCircle, Wallet, Shirt, Loader2 } from 'lucide-react';
 
 export default function Dashboard() {
   const { totalMoney, feed, isLoading } = useStore();
@@ -70,7 +70,9 @@ export default function Dashboard() {
               <div className="flex items-baseline gap-1.5 text-[#D4621A] drop-shadow-sm min-h-[48px] sm:min-h-[60px]">
                 <span className="text-2xl sm:text-3xl font-bold">Rp</span>
                 {isLoading ? (
-                  <div className="h-10 sm:h-12 w-32 sm:w-48 bg-[#D4621A]/20 animate-pulse rounded-lg ml-1 self-center"></div>
+                  <div className="flex items-center ml-3 self-center">
+                    <Loader2 className="w-8 h-8 sm:w-10 sm:h-10 animate-spin text-[#D4621A]" />
+                  </div>
                 ) : (
                   <span className="text-4xl sm:text-5xl font-extrabold tracking-tight">
                     {new Intl.NumberFormat('id-ID').format(totalMoney)}
